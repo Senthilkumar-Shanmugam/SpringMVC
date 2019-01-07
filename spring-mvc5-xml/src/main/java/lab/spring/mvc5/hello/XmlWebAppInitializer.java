@@ -22,9 +22,6 @@ public class XmlWebAppInitializer implements WebApplicationInitializer{
         		         new DispatcherServlet(webContext));
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("/");
-
-		
-		
 	}
 
 }
