@@ -2,6 +2,7 @@
 <!DOCTYPE hibernate-configuration PUBLIC
 "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<!--
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.archive.autodetection">class,hbm</property>
@@ -13,7 +14,7 @@
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/devdb</property>
         <property name="hibernate.hbm2ddl.auto">create</property>
      
-     <!--    
+         
         <property name="hibernate.c3p0.min_size">5</property>
         <property name="hibernate.c3p0.max_size">20</property>
         <property name="hibernate.c3p0.acquire_increment">2</property>
