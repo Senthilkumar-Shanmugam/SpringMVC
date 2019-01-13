@@ -49,7 +49,7 @@ public class UserController {
         return "redirect:/";
     }
     
-    @ExceptionHandler(CustomException.class)
+ /*   @ExceptionHandler(CustomException.class)
     public ModelAndView handleCustomException(CustomException ex) {
     	ModelAndView model = new ModelAndView("error/generic_error");
     	model.addObject("errCode", ex.getErrCode());
@@ -66,5 +66,5 @@ public class UserController {
 
 		return model;
 
-    }
+    }*/
 }
