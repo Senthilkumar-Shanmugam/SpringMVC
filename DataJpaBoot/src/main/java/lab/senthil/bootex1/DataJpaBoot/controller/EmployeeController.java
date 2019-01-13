@@ -25,20 +25,21 @@ import lab.senthil.bootex1.DataJpaBoot.exception.ResourceNotFoundException;
 import lab.senthil.bootex1.DataJpaBoot.model.Employee;
 import lab.senthil.bootex1.DataJpaBoot.repository.EmployeeRepository;
 
-@RestController
+@RestController  // No explicit mapping is required
 @RequestMapping("/api/v1/")
 public class EmployeeController {
 	@Autowired
 	private EmployeeRepository employeeRepository;
 	
 	@GetMapping("/employees")
+	//@ResponseBody
 	public List<Employee> getAllEmployees(){
 		return employeeRepository.findAll();
 	}
 	
 	//@GetMapping("/employees/{id}")
 	@RequestMapping(value = "/employee/{id}",method = RequestMethod.GET, produces="application/json")
-	public 	@ResponseBody Employee getEmployeeById(@PathVariable(value = "id") Long employeeId) 
+	public 	Employee getEmployeeById(@PathVariable(value = "id") Long employeeId) 
 			throws ResourceNotFoundException{
 		Employee employee =employeeRepository.findById(employeeId)
 		          .orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + employeeId));
