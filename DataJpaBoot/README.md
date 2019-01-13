@@ -9,7 +9,10 @@ what is spring-boot-starter-parent
 @Valid
 @RequestBody
 @Optional
-.orElseThrow()
+.orElseThrow() ->- in SpringData repository when id is not found
+
+what to HTTP method to use ..POST vs PUT 
+-----------------------------------------
 use post when you dont know the id
 put if you know the id.
 
