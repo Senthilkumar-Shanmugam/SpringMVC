@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import lab.senthil.bootex1.DataJpaBoot.exception.ResourceNotFoundException;
@@ -32,16 +36,19 @@ public class EmployeeController {
 		return employeeRepository.findAll();
 	}
 	
-	@GetMapping("/employees/{id}")
-	public ResponseEntity<Employee> getEmployeeById(@PathVariable(value = "id") Long employeeId) 
+	//@GetMapping("/employees/{id}")
+	@RequestMapping(value = "/employee/{id}",method = RequestMethod.GET, produces="application/json")
+	public 	@ResponseBody Employee getEmployeeById(@PathVariable(value = "id") Long employeeId) 
 			throws ResourceNotFoundException{
 		Employee employee =employeeRepository.findById(employeeId)
 		          .orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + employeeId));
-		return ResponseEntity.ok().body(employee);
+		//return ResponseEntity.ok().body(employee);
+		return employee;
 
 	}
 	
 	@PostMapping("/employees")
+	@ResponseStatus(HttpStatus.CREATED)
 	public Employee createEmployee(@Valid @RequestBody Employee employee) {
 		return employeeRepository.save(employee);
 		
