@@ -1,16 +1,22 @@
 package lab.senthil.bootex1.DataJpaBoot.controller;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
+import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -19,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -53,22 +60,33 @@ public class EmployeeController {
 	
 	//@GetMapping("/employees/{id}")
     @ApiOperation(value = "Get an employee by Id")
-	@RequestMapping(value = "/employees/{id}",method = RequestMethod.GET, produces="application/xml",consumes="application/json")
-	public 	Employee getEmployeeById(@ApiParam(value = "Employee id from which employee object will retrieve", required = true)
+	@RequestMapping(value = "/employees/{id}",method = RequestMethod.GET, produces="application/json",consumes="application/json")
+	public 	Resource<Employee> getEmployeeById(@ApiParam(value = "Employee id from which employee object will retrieve", required = true)
 	@PathVariable(value = "id") Long employeeId) 
 			throws ResourceNotFoundException{
-		Employee employee =employeeRepository.findById(employeeId)
+		/*Employee employee =employeeRepository.findById(employeeId)
 		          .orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + employeeId));
-		//return ResponseEntity.ok().body(employee);
-		return employee;
+		*///return ResponseEntity.ok().body(employee);
+    	Optional<Employee> employee = employeeRepository.findById(employeeId);
+    	if (!employee.isPresent())
+    	throw new ResourceNotFoundException("Employee not found for this id :: " + employeeId);
+    	
+    	Resource<Employee> empResource = new Resource<Employee>(employee.get());
+    	ControllerLinkBuilder linkTo = linkTo(methodOn(this.getClass()).getAllEmployees());
+    	empResource.add(linkTo.withRel("all-employees"));
+		return empResource;
 
 	}
 	
 	@PostMapping("/employees")
     @ApiOperation(value = "Add an employee")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Employee createEmployee(@ApiParam(value = "Employee object store in database table", required = true)  @Valid @RequestBody Employee employee) {
-		return employeeRepository.save(employee);
+	public ResponseEntity<Employee> createEmployee(@ApiParam(value = "Employee object store in database table", required = true)  @Valid @RequestBody Employee employee) {
+		Employee saved = employeeRepository.save(employee);
+		
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+		               .buildAndExpand(saved.getId()).toUri();
+		return ResponseEntity.created(location).build();
 		
 	}
 	
