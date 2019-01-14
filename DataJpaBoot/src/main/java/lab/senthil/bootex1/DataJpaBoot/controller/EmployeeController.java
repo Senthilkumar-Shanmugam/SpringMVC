@@ -44,15 +44,16 @@ public class EmployeeController {
         @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
         @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
-	@GetMapping("/employees")
+	//@GetMapping("/employees")
 	//@ResponseBody
+	@RequestMapping(value="/employees",method = RequestMethod.GET, produces = {"application/xml","application/json"})
 	public List<Employee> getAllEmployees(){
 		return employeeRepository.findAll();
 	}
 	
 	//@GetMapping("/employees/{id}")
     @ApiOperation(value = "Get an employee by Id")
-	@RequestMapping(value = "/employee/{id}",method = RequestMethod.GET, produces="application/json")
+	@RequestMapping(value = "/employees/{id}",method = RequestMethod.GET, produces="application/xml",consumes="application/json")
 	public 	Employee getEmployeeById(@ApiParam(value = "Employee id from which employee object will retrieve", required = true)
 	@PathVariable(value = "id") Long employeeId) 
 			throws ResourceNotFoundException{
