@@ -58,6 +58,15 @@ Accept-Encoding: List of acceptable encodings.
 Accept-Charset: Acceptable charset list.
 If the server cannot send data in a format requested in the Accept header, the server sends the 406 Not Acceptable error.
 
+Content Negotiation using URL Extension
+URL extension or suffix is another content negotiation strategy used by multiple systems.Client API can use the extension or suffix in the resource URI to inform expected content type. Let’s take an example to understand this strategy.
+
+https://www.javadevjournal.com/v1/customers/1234.xml
+https://www.javadevjournal.com/v1/customers/1234.json
+Copy
+The first request will return XML response while the second request is for the JSON data.
+Similar to the Accept header strategy, server API use default content mechanism when the extension is not provided in the URL
+
  
 
 
