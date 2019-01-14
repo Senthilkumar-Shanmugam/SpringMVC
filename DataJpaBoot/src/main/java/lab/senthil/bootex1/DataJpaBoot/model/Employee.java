@@ -7,12 +7,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 @Table(name="employees")
+@ApiModel(description="All details about employee")
 public class Employee {
+    @ApiModelProperty(notes = "The database generated employee ID")
 	private long id;
+    @ApiModelProperty(notes = "The employee first name")
     private String firstName;
+    @ApiModelProperty(notes = "The employee last name")
     private String lastName;
+    @ApiModelProperty(notes = "The employee email id")
     private String emailId;
     public Employee() {
     }
