@@ -12,16 +12,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @ComponentScan(basePackages = {"lab.springsecurity.controller"})
 public class WebConfig implements WebMvcConfigurer {
 	
-	@Override
+	 @Override
 	  public void configureViewResolvers(ViewResolverRegistry registry) {
 	    registry.jsp().prefix("/WEB-INF/views/").suffix(".jsp");
 	  }
 
-	@Override
-    public void addViewControllers(final ViewControllerRegistry registry) {
-        registry.addViewController("/login").setViewName("login");
-    }
-	
+	  @Override
+	  public void addViewControllers(ViewControllerRegistry registry) {
+	    registry.addViewController("/login").setViewName("login");
+	  }	
 	
 
 }
