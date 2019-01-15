@@ -12,7 +12,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"lab.springsecurity"})
+@ComponentScan(basePackages = {"lab.springsecurity.controller"})
 public class WebConfig implements WebMvcConfigurer {
 	
 	@Bean
@@ -26,7 +26,7 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Override
     public void addViewControllers(final ViewControllerRegistry registry) {
-        registry.addViewController("/csrfAttacker.html");
+        registry.addViewController("/login").setViewName("login");
     }
 	
 	
