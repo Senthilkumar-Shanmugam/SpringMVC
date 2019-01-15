@@ -172,10 +172,10 @@
 				<configuration>
 					<scanIntervalSeconds>10</scanIntervalSeconds>
 					<webApp>
-						<contextPath>/security</contextPath>
+						<contextPath>/</contextPath>
 					</webApp>
 					<httpConnector>
-						<port>8089</port>
+						<port>9090</port>
 					</httpConnector>
 				</configuration>
 			</plugin>

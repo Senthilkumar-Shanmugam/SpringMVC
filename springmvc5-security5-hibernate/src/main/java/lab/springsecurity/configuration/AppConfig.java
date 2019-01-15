@@ -17,7 +17,7 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@ComponentScans(value = {@ComponentScan("lab.springsecurity.service")})
+@ComponentScans(value = {@ComponentScan("lab.springsecurity.service"),@ComponentScan("lab.springsecurity.dao")})
 @EnableTransactionManagement
 @PropertySource("classpath:db.properties")
 public class AppConfig {
