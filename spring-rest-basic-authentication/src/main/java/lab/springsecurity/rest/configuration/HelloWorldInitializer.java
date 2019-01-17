@@ -8,12 +8,12 @@ public class HelloWorldInitializer extends AbstractAnnotationConfigDispatcherSer
  
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[] {};
+        return new Class[] { HelloWorldConfiguration.class };
     }
   
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[] {HelloWorldConfiguration.class};
+        return null;
     }
   
     @Override
